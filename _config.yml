@@ -87,8 +87,6 @@ scholar:
   bibliography_list_attributes:
     reversed: "reversed"
 
-gems:
-  jekyll/scholar
 exclude:
   - Gemfile
   - Gemfile.lock
