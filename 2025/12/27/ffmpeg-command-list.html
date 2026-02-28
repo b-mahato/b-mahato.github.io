@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>List of useful ffmpeg commands - Bikash Mahato</title>
+  <meta name="description" content="Academic webpage of Dr. Bikash Mahato">
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/2025/12/27/ffmpeg-command-list.html">
+  <link rel="shortcut icon" type ="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+
+  <link rel="preconnect" href="https://player.vimeo.com">
+  <link rel="preconnect" href="https://i.vimeocdn.com">
+  <link rel="preconnect" href="https://f.vimeocdn.com">
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSF8EC8JY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LRSF8EC8JY');
+</script>
+
+
+
+</head>
+
+
+  <body>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id="
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">
+     <img src="/favicon.ico" width="30" height="30" style="margin-right:5px" class="d-inline-block align-top" alt="">
+      Bikash Mahato
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+          </li> 
+          
+           <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+           </li> 
+          
+           <li class="nav-item">
+            <a class="nav-link" href="/publications">Publications</a>
+           </li> 
+          
+           <li class="nav-item">
+            <a class="nav-link" href="/talks">Talks</a>
+           </li> 
+          
+           <li class="nav-item">
+            <a class="nav-link" href="/research">Research</a>
+           </li> 
+          
+           <li class="nav-item">
+            <a class="nav-link" href="/teaching">Teaching</a>
+           </li> 
+          
+           <li class="nav-item">
+            <a class="nav-link" href="/blog">Blog</a>
+           </li> 
+          
+        </ul>
+  </div>
+</nav>
+
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">List of useful ffmpeg commands</h1>
+    <p class="post-meta"><time datetime="2025-12-27T00:00:00-07:00" itemprop="datePublished">Dec 27, 2025</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><b>Make movie twice faster:</b> <br />
+ffmpeg -i input -filter:v “setpts=0.5*PTS” out.mp4</p>
+
+<p><b>Make movie twice slower:</b> <br />
+ffmpeg -i input -filter:v “setpts=2.0*PTS” out.mp4</p>
+
+<p><b>Reverse video:</b> <br />
+ffmpeg -i input -vf reverse out.mp4</p>
+
+<p><b>Cut movie starting from first second, making a 2 second new movie:</b> <br />
+ffmpeg -i input.mp4 -ss 00:00:01.0 -t 00:00:02.0 out.mp4
+ffmpeg -i .\Media3.mp4 -ss 00:59 -to 21:05 Media3_trimmed.mp4</p>
+
+<p><b>Trim and remove audio:</b> <br />
+ffmpeg -i .\Media1.mp4 -ss 00:13 -to 01:57 -an Media1_trimmed.mp4</p>
+
+<p><b>Movie to images every 1 sec:</b> <br />
+ffmpeg -i input.mp4 -vf fps=1 out%d.png</p>
+
+<p><b>Gifs higher quality:</b> <br />
+ffmpeg -r 8 -i im%01d.jpg -vf “split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse” out.gif</p>
+
+<p><b>Cropping a video:</b> <br />
+ffmpeg -i in.mp4 -filter:v “crop=out_w:out_h:x:y” out.mp4</p>
+
+<p><b>Trim and crop a video:</b> <br />
+ffmpeg -i .\Media1.mp4 -ss 00:08 -to 00:38 -an -vf “crop=1280:1080:300:0” -y Media1-trimmed.mp4</p>
+
+<p><b>Scaling a video:</b> <br />
+ffmpeg -i input.mp4 -vf scale=320:-1 output.mp4
+(the 320 is the width of the exported video)</p>
+
+<p><b>Compressing a video to reduce its size:</b> <br />
+ffmpeg -i input.mp4 -vcodec libx264 -crf 32 output.mp4
+(the 32 is a free-parameter; increase it to increase the level of compression).</p>
+
+<p><b>Concatenating videos:</b> <br />
+first create a new text file with the videos to connect. <br />
+For example, inside ‘videos.txt’ file write:<br />
+file ‘out1.mp4’<br />
+file ‘out2.mp4’<br />
+…<br />
+and then:<br />
+ffmpeg -f concat -i videos.txt -c copy out.mp4</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <br/>
+<section id="footer">
+<div class="container-footer">
+  <div class="panel-footer">
+	  <div class="row">
+		<div class="col-sm-4">
+		    <h5>About me</h5>	
+            <p>Bikash Mahato, Ph.D.<br/> Visiting Assistant Professor,<br/> Department of Mechanical Engineering,<br/> Montana Technological University
+</p>
+		</div>
+
+		<div class="col-sm-4">
+		    <h5>Contact</h5>	
+            <p><a href="mailto:bmahato@mtech.edu" target="_blank"><i class="fa fa-envelope fa-1x"></i> Contact Bikash via email</a> <br/>
+</p>
+		</div>
+
+		<div class="col-sm-4">
+		    <h5>Coordinates</h5>	
+            <p>Montana Technological University<br/> 1300 W Park Street<br/> Butte, MT 59701
+</p>
+		</div>
+	  </div>
+
+      <center><p>&copy 2026 Bikash Mahato </p></center>
+	</div>
+  </div>
+</div>
+
+<script src="/assets/javascript/bootstrap/jquery.min.js"></script>
+<script src="/assets/javascript/bootstrap/bootstrap.bundle.min.js"></script>
+
+
+  </body>
+
+</html>
